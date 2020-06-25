@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="shoppingCart">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <title>Shopping Cart</title>
+  </head>
+  <body>
+    <h1 style="text-align: center;" class="text-dark">Shopping Cart</h1>
+
+    <!-- Cart List -->
+    <div ng-controller="ctrl1 as c1">
+      <div class="container">
+        <input
+          class="form-control"
+          type="text"
+          placeholder="Item Name"
+          ng-model="c1.itemName"
+          required
+        />
+        <input
+          class="my-2 form-control"
+          type="text"
+          placeholder="Item Quantity"
+          ng-model="c1.itemQuantity"
+          required
+        />
+        <button class="btn btn-primary" ng-click="c1.addToCart()">
+          ADD TO CART
+        </button>
+        <h1>To Buy</h1>
+        <ul>
+          <li
+            class="m-2"
+            ng-show="c1.cartItemsList.length"
+            ng-repeat="item in c1.cartItemsList"
+          >
+            Buy {{item.itemQuantity}} {{item.itemName}}
+            <button class="btn btn-dark" ng-click="c1.addToBrought($index)">
+              BUY
+            </button>
+          </li>
+        </ul>
+        <p ng-hide="c1.cartItemsList.length" class="text-success">
+          Everything is bought!
+        </p>
+      </div>
+    </div>
+
+    <!-- Brought List -->
+    <div ng-controller="ctrl2 as c2" class="container">
+      <h1>Already Bought</h1>
+      <p ng-hide="c2.broughtItemsList.length" class="text-danger">
+        Nothing bought yet
+      </p>
+      <ul>
+        <li
+          class="m-2"
+          ng-show="c2.broughtItemsList.length"
+          ng-repeat="item in c2.broughtItemsList"
+        >
+          Bought {{item.itemQuantity}} {{item.itemName}}
+          <button class="btn btn-dark" ng-click="c2.removeFromBrought($index)">
+            DON'T BUY
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
